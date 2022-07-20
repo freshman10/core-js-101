@@ -156,8 +156,8 @@ function unbracketTag(str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toLocaleUpperCase();
 }
 
 /**
@@ -175,8 +175,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +202,29 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let output = '';
+  if (width && height) {
+    for (let i = 0; i < height; i += 1) {
+      for (let j = 0; j < width; j += 1) {
+        if (!i && !j) {
+          output += '┌';
+        } else if (!j && (i + 1) === height) {
+          output += '└';
+        } else if (j + 1 === width && !i) {
+          output += '┐\n';
+        } else if (j + 1 === width && i + 1 === height) {
+          output += '┘\n';
+        } else if (i + 1 === height) {
+          output += '│\n';
+        } else if (!i && (!j || j + 1 === width)) {
+          output += '│';
+        }
+        return output;
+      }
+    }
+  }
+  return '';
 }
 
 
