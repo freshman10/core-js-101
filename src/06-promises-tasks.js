@@ -108,20 +108,23 @@ function getFastestPromise(array) {
  */
 function chainPromises(array, action) {
   return new Promise((resolve, reject) => {
-    const results = [];
-    array.forEach((promise) => {
-      promise.then((v) => results.push(v)).catch(() => console.log('err'));
-    });
-    let output;
-    for (let i = 1; i < results.length; i += 2) {
-      if (i + 1 !== results.length) {
-        output = action(results[i], results[i + 1]);
-      }
-    }
-    resolve(output);
+    const arr = array.reduce((acc, promise) => {
+      promise.then((v) => {
+        acc.item.push(v);
+        if (acc.item.length === array.length) {
+          while (acc.item.length !== 1) {
+            acc.item.splice(0, 2, action(acc.item[0], acc.item[1]));
+          }
+        }
+      });
+      return acc;
+    }, { item: [] });
+
+    resolve(arr);
     reject(new Error('Error'));
-  });
+  }).then((v) => v.item[0]);
 }
+
 
 module.exports = {
   willYouMarryMe,
