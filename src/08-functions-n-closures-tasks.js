@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (x) {
+  return function y(x) {
     return f(g(x));
   };
 }
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (value) {
+  return function x(value) {
     return value ** exponent;
   };
 }
@@ -81,7 +81,7 @@ function getPolynom(a, b, c) {
     b1 = b;
     c1 = c;
   }
-  return function (x) {
+  return function y(x) {
     return (a1 || 0) * x ** 2 + (b1 || 0) * x + (c1 || 0);
   };
 }
