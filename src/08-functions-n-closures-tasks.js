@@ -135,7 +135,6 @@ function retry(func, attempts) {
     try {
       return func();
     } catch (e) {
-      console.log(e);
       if (count !== 0) {
         count -= 1;
         return nameless();
